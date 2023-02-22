@@ -1,0 +1,82 @@
+@import "./color.scss";
+
+.allWrapper{
+    border-bottom: 1px solid $textColor;
+    margin-top: 15px;
+    .topSection{
+        padding: 0 20%; 
+        display: flex;
+        justify-content: space-between;
+        .mainLogo{
+            font-size: 25px;
+            font-weight: 700;
+        }
+        .searchBox{
+            width: 40%;
+            position: relative;
+            input{
+                width: 70%;
+                height: 35px;
+                border: 1px solid $textColor;
+                border-radius: 15px;
+                background-color: $bgColor;
+                padding: 3px 55px 5px 25px;
+                color: white;
+                font-size: 18px;
+            }
+            span{
+                position: absolute;
+                top: 12px;
+                @media (min-width:2560px) {
+                    right: 19%;
+                }
+                @media (max-width:2559px) {
+                    right: 17%;
+                }
+                @media (max-width:1800px) {
+                    right: 15%;
+                }
+                @media (max-width:1500px) {
+                    right: 13%;
+                }
+                @media (max-width:1300px) {
+                    right: 11%;
+                }
+                @media (max-width:1024px) {
+                    right: 7%;
+                }
+
+            }
+        }
+        .prfileImg{
+            width: 50px;
+            height: 50px;
+            border: 2px solid white;
+            border-radius: 100px;
+        }
+        .loginBtn{
+            background-color: $mainColor;
+            width: 120px;
+            height: 36px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            color: $bgColor;
+            margin-top: 5px;
+        }
+    }
+
+    .bottomSection{
+        padding: 20px 20% 0px; 
+        display: flex;
+        gap: 20px;
+        color: $textColor;
+        font-weight: 600;
+        .on{
+            color: $mainColor;
+            padding-bottom: 10px !important;
+            border-bottom: 2px solid $mainColor;
+        }
+    }
+}
