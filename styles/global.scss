@@ -1,6 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 @import "./color.scss";
 
+@mixin areaPadding{
+    padding: 150px 20% 20px; 
+    @media (max-width:1300px) {
+        padding: 150px 10% 20px;
+    }
+    @media (max-width:425px) {
+        padding: 100px 5% 20px;
+    }
+}
+
+
 *{
     font-family: 'Noto Sans KR', sans-serif;
 }
@@ -8,6 +19,8 @@
 body{
     background-color: $bgColor;
     color : white;
+    @include areaPadding;
+    margin: 0;
 }
 
 a{
