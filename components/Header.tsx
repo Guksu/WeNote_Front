@@ -11,7 +11,12 @@ import HomeIcon from "@mui/icons-material/Home";
 export default function Header() {
   const isLogin = useAppStore((state) => state.isLogin);
   const router = useRouter();
+  const homeQuery = useAppStore((state) => state.homeQuery);
+  const homeQeuryChange = useAppStore((state) => state.queryChange);
 
+  function queryChange() {
+    console.log(homeQuery);
+  }
   return (
     <>
       <div className={styles.allWrapper}>
@@ -20,14 +25,25 @@ export default function Header() {
             WeNote
           </Link>
           <div className={styles.searchBox}>
-            <input placeholder="키워드 검색" type="text" />
+            <input
+              placeholder="키워드 검색"
+              type="text"
+              value={homeQuery.keyword}
+              onChange={(e) => homeQeuryChange({ keyword: e.currentTarget.value, category: homeQuery.category, page: 1 })}
+              onKeyUp={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  queryChange();
+                }
+              }}
+            />
             <span>
               <SearchIcon sx={{ color: "white" }} />
             </span>
           </div>
           <div>
             {isLogin ? (
-              <img src="/images/default_user.png" onClick={() => router.push("/profile")} className={styles.prfileImg} />
+              <img src="/images/default_user.png" alt="프로필 이미지" onClick={() => router.push("/profile")} className={styles.prfileImg} />
             ) : (
               <button className={styles.loginBtn}>로그인</button>
             )}
@@ -41,7 +57,7 @@ export default function Header() {
             참가현황
           </Link>
           <Link href={"/project"} className={router.asPath.includes("/project") ? styles.on : ""}>
-            프로젝트 노트
+            프로젝트
           </Link>
           <Link href={"/note"} className={router.asPath.includes("/note") ? styles.on : ""}>
             개인 노트
@@ -65,7 +81,7 @@ export default function Header() {
           <span>
             <WorkIcon />
           </span>
-          <p>프로젝트 노트</p>
+          <p>프로젝트</p>
         </Link>
         <Link href={"/note"} className={router.asPath.includes("/note") ? styles.on : ""}>
           <span>

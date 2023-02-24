@@ -6,7 +6,10 @@
     @media (max-width:1300px) {
         padding: 150px 10% 20px;
     }
-    @media (max-width:425px) {
+    @media (max-width:600px) {
+        padding: 100px 10% 20px;
+    }
+    @media (max-width:450px) {
         padding: 100px 5% 20px;
     }
 }
@@ -28,6 +31,12 @@ a{
     text-decoration: none;
     cursor: pointer;
 
+}
+
+ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 button{

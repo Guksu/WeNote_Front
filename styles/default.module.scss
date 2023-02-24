@@ -1,0 +1,11 @@
+@import "./color.scss";
+
+.noneData{
+    background-color: $subColor;
+    color: #8B8E8A;
+    height: 150px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

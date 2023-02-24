@@ -1,0 +1,178 @@
+@import "./color.scss";
+
+.alleWrapper{
+    .categoryArea{
+        display: flex;
+        gap:25px;
+        @media (max-width:425px) {
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        li{
+            border : 1px solid $textColor;
+            border-radius: 5px;
+            padding: 4px 12px;
+            color:$textColor;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            @media (max-width:600px) {
+                font-size: 13px;
+            }
+            &:hover{
+                color: white;
+                border : 1px solid white;  
+            }
+        }
+        .on{
+            color: $mainColor;
+            border : 1px solid $mainColor;  
+            &:hover{
+                color: $mainColor;
+                border : 1px solid $mainColor;  
+            }
+        }
+    }
+  
+}
+
+.projectListWrapper{
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    @media (max-width:1700px) {
+        column-gap: 20px;
+    }
+    .projectBox{
+        width: 20%;
+        @media (max-width:1700px) {
+            width: 25%;
+        }
+        @media (max-width:800px) {
+            width: 40%;
+        }
+        @media (max-width:605px) {
+            width: 90%;
+        }
+        height: 180px;
+        background-color: $subColor;
+        padding: 10px 20px;
+
+        div{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+
+            h4{
+                font-size: 16px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            img{
+                width: 48px;
+                height: 48px;
+                border-radius: 100px;
+                object-fit: cover;
+            }
+        }
+        
+        p{
+            color: #8e8f91;
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 25px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        button{
+            border: none;
+            background-color: #303030;
+            color: #8e8f91;
+            width: 80px;
+            height: 26px;
+            border-radius: 10px;
+            margin-top: 25px;
+            padding-bottom: 2px;
+            &:hover{
+                color: $mainColor;
+            }
+        }
+    }
+}
+
+.detailModalWrapper{
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.6);
+    .modalBox{
+        margin: 50px 0;
+        padding: 25px 30px;
+        background-color: $subColor;
+        width: 50%;
+        border-radius: 20px;
+
+        .closeBtn{
+            display: flex;
+            justify-content: flex-end;
+            color: $mainColor;
+            svg{
+                cursor: pointer;
+                width: 30px !important;
+                height: 30px !important;
+            }
+        }
+        .imgArea{
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+            img{
+                border-radius: 10px;
+                width: 40%;
+                height: 180px;
+                object-fit: cover;
+            }
+        }
+        .topInfo{
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+            h3{
+                width: 80%;
+            }
+            button{
+                border: none;
+                background-color: #303030;
+                color: $mainColor;
+                width: 80px;
+                height: 26px;
+                border-radius: 10px;
+                margin-top: 25px;
+                padding-bottom: 2px;
+                &.on{
+                    &:hover{
+                        color: $mainColor;
+                    }
+                }
+                &:hover{
+                    color: white;
+                }
+            }
+        }
+        p{
+            height: 50%;
+            overflow-y: scroll;
+        }
+    }
+}
