@@ -15,3 +15,9 @@ export interface ProjectDetail {
   PRO_REG__DT: string;
   MEMBER_CHECK: string;
 }
+
+export interface ProfileInfo {
+  MEM_NICK: string;
+  MEM_EMAIL: string;
+  MEM_IMG: string;
+}

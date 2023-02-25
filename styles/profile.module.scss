@@ -1,0 +1,89 @@
+@import "./color.scss";
+
+.profileWrapper{
+    background-color: $subColor;
+    padding: 30px;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    @media (max-width:600px) {
+        width: 85%;
+    }
+
+    .logout{
+        cursor: pointer;
+        color: $textColor;
+        font-size: 15px;
+        font-weight: 800;
+        text-decoration: underline;
+    }
+
+    .inputArea{
+        height: 150px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        label{
+            font-size: 18px;
+            font-weight: bold;
+        }
+    }
+
+    .profileArea{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        margin-top: 10px;
+        img{
+            width: 100px !important;
+            height: 100px !important;
+            border-radius: 50px;
+            object-fit: cover;
+        }
+    }
+
+    .inputArea2{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        label{
+            font-size: 18px;
+            font-weight: bold;
+        }
+        input{
+            height: 35px;
+            border: none;
+            border-radius: 10px;
+            background-color: #303030;
+            color: white;
+            padding: 5px 20px;
+            font-size: 18px;
+            &:focus { outline: none; }
+        }
+    }
+
+    .btnArea{
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+        gap: 30px;
+        button{
+            border:  none;
+            background-color: $mainColor;
+            height: 40px;
+            border-radius: 10px;
+            color: $bgColor;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .disabledBtn{
+            opacity: 0.5;
+        }
+        .leaveBtn{
+            background-color: $textColor;
+            color: $subColor;
+        }
+    }
+}

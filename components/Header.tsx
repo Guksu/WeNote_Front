@@ -7,7 +7,7 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import WorkIcon from "@mui/icons-material/Work";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import HomeIcon from "@mui/icons-material/Home";
-import { useState, useEffect } from "react";
+import { useState, useEffect, MouseEvent } from "react";
 import JoinModal from "./modal/JoinModal";
 import LoginModal from "./modal/LoginModal";
 import Image from "next/image";
@@ -20,6 +20,14 @@ export default function Header() {
   const [loginOpen, setLoginOpen] = useState<boolean>(false);
   const [joinOpen, setJoinOpen] = useState<boolean>(false);
   const [profileImg, setProfileImg] = useState<string | null>("");
+
+  //-------------------function----------------------------------//
+  const onLoginCheck = (e: MouseEvent<HTMLAnchorElement, globalThis.MouseEvent>) => {
+    if (!isLogin) {
+      e.preventDefault();
+      alert("로그인 후 이용해주세요");
+    }
+  };
 
   useEffect(() => {
     if (sessionStorage.getItem("profileImg") !== "") {
@@ -38,6 +46,8 @@ export default function Header() {
             <input
               placeholder="키워드 검색"
               type="text"
+              value={homeQuery.keyword}
+              onChange={(e) => homeQeuryChange({ keyword: e.currentTarget.value, category: homeQuery.category, page: 1 })}
               onKeyUp={(e) => {
                 if (e.key === "Enter") {
                   homeQeuryChange({ keyword: e.currentTarget.value, category: homeQuery.category, page: 1 });
@@ -64,13 +74,13 @@ export default function Header() {
           <Link href={"/"} className={router.asPath === "/" ? styles.on : ""}>
             홈
           </Link>
-          <Link href={"/participation"} className={router.asPath.includes("/participation") ? styles.on : ""}>
+          <Link href={"/participation"} className={router.asPath.includes("/participation") ? styles.on : ""} onClick={(e) => onLoginCheck(e)}>
             참가현황
           </Link>
-          <Link href={"/project"} className={router.asPath.includes("/project") ? styles.on : ""}>
+          <Link href={"/project"} className={router.asPath.includes("/project") ? styles.on : ""} onClick={(e) => onLoginCheck(e)}>
             프로젝트
           </Link>
-          <Link href={"/note"} className={router.asPath.includes("/note") ? styles.on : ""}>
+          <Link href={"/note"} className={router.asPath.includes("/note") ? styles.on : ""} onClick={(e) => onLoginCheck(e)}>
             개인 노트
           </Link>
         </nav>
@@ -82,19 +92,19 @@ export default function Header() {
           </span>
           <p>홈</p>
         </Link>
-        <Link href={"/participation"} className={router.asPath.includes("/participation") ? styles.on : ""}>
+        <Link href={"/participation"} className={router.asPath.includes("/participation") ? styles.on : ""} onClick={(e) => onLoginCheck(e)}>
           <span>
             <EventAvailableIcon />
           </span>
           <p>참가현황</p>
         </Link>
-        <Link href={"/project"} className={router.asPath.includes("/project") ? styles.on : ""}>
+        <Link href={"/project"} className={router.asPath.includes("/project") ? styles.on : ""} onClick={(e) => onLoginCheck(e)}>
           <span>
             <WorkIcon />
           </span>
           <p>프로젝트</p>
         </Link>
-        <Link href={"/note"} className={router.asPath.includes("/note") ? styles.on : ""}>
+        <Link href={"/note"} className={router.asPath.includes("/note") ? styles.on : ""} onClick={(e) => onLoginCheck(e)}>
           <span>
             <EventNoteIcon />
           </span>

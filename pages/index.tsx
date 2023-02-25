@@ -20,6 +20,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 };
 
 export default function Home({ projectListSSR }: { projectListSSR: HomeProjectList[] }) {
+  const isLogin = useAppStore((state) => state.isLogin);
   const homeQuery = useAppStore((state) => state.homeQuery);
   const homeQeuryChange = useAppStore((state) => state.queryChange);
   const [detailOpen, setDetailOpen] = useState<boolean>(false);
@@ -71,7 +72,7 @@ export default function Home({ projectListSSR }: { projectListSSR: HomeProjectLi
   );
 
   const onDetailClick = (detialId: number) => {
-    if (window.sessionStorage.getItem("token")) {
+    if (isLogin) {
       setDetailOpen(true);
       setDetailId(detialId);
     } else {
