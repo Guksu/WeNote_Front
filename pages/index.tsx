@@ -5,9 +5,12 @@ import { HomeProjectList } from "@/interface/interface";
 import NoneData from "@/components/NoneData";
 import axios from "axios";
 import ProjectDetailModal from "@/components/modal/ProjectDetailModal";
+import Image from "next/image";
+import { GetServerSideProps } from "next";
 
-export const getServerSideProps = async () => {
-  const res = await axios.get("/project/all_list?KEYWORD&PRO_CATEGORY=0&PAGE=1");
+export const getServerSideProps: GetServerSideProps = async () => {
+  axios.defaults.baseURL = "http://localhost:4000";
+  const res = await axios.get(`/project/all_list?KEYWORD&PRO_CATEGORY=0&PAGE=1`);
 
   return {
     props: {
@@ -35,9 +38,9 @@ export default function Home({ projectListSSR }: { projectListSSR: HomeProjectLi
 
   //-------------------function----------------------------------//
   const categoryChange = useCallback(async (value: string) => {
-    homeQeuryChange({ keyword: homeQuery.keyword, category: value, page: 1 });
+    homeQeuryChange({ keyword: "", category: value, page: 1 });
     try {
-      const res = await axios.get(`/project/all_list?KEYWORD=${homeQuery.keyword}&PRO_CATEGORY=${value}&PAGE=1`);
+      const res = await axios.get(`/project/all_list?KEYWORD&PRO_CATEGORY=${value}&PAGE=1`);
       setProjectList(res.data.data);
     } catch (error) {
       console.log(error);
@@ -82,6 +85,13 @@ export default function Home({ projectListSSR }: { projectListSSR: HomeProjectLi
     }
   }, [page]);
 
+  useEffect(() => {
+    axios
+      .get(`/project/all_list?KEYWORD=${homeQuery.keyword}&PRO_CATEGORY=${homeQuery.category}&PAGE=1`)
+      .then((res) => setProjectList(res.data.data))
+      .catch((error) => console.log(error));
+  }, [homeQuery.keyword]);
+
   return (
     <>
       <div className={styles.alleWrapper}>
@@ -107,7 +117,13 @@ export default function Home({ projectListSSR }: { projectListSSR: HomeProjectLi
                   <div key={item.PRO_ID} className={styles.projectBox} ref={projectList.length === index + 1 ? lastDataRef : null}>
                     <div>
                       <h4>{item.PRO_TITLE}</h4>
-                      <img src={item.PRO_IMG ? item.PRO_IMG : "/images/default_project.jpg"} alt={"프로젝트 이미지"} />
+                      <div className={styles.imgArea}>
+                        <Image
+                          src={item.PRO_IMG ? `http://localhost:4000/${item.PRO_IMG}` : "/images/default_project.jpg"}
+                          alt={"프로젝트 이미지"}
+                          fill
+                        />
+                      </div>
                     </div>
                     <p>{item.PRO_CONTENT}</p>
                     <button onClick={() => onDetailClick(item.PRO_ID)}>상세보기</button>

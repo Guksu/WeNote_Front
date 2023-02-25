@@ -3,6 +3,7 @@ import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import axios from "axios";
 import { ProjectDetail } from "@/interface/interface";
+import Image from "next/image";
 
 type Props = {
   setDetailOpen: Dispatch<SetStateAction<boolean>>;
@@ -12,10 +13,6 @@ type Props = {
 export default function ProjectDetailModal({ setDetailOpen, detailId }: Props) {
   const [detailData, setDetailDate] = useState<ProjectDetail>();
   //----------------------function-----------------
-  const modalClose = () => {
-    setDetailOpen(false);
-  };
-
   const getDetailData = async () => {
     try {
       const res = await axios.get(`/project/detail/${detailId}`);
@@ -43,11 +40,15 @@ export default function ProjectDetailModal({ setDetailOpen, detailId }: Props) {
   return (
     <div className={styles.detailModalWrapper}>
       <div className={styles.modalBox}>
-        <div onClick={modalClose} className={styles.closeBtn}>
+        <div onClick={() => setDetailOpen(false)} className={styles.closeBtn}>
           <HighlightOffIcon />
         </div>
         <div className={styles.imgArea}>
-          <img src={detailData?.PRO_IMG ? detailData.PRO_IMG : "/images/default_project.jpg"} alt="프로젝트 이미지" />
+          <Image
+            src={detailData?.PRO_IMG ? `http://localhost:4000/${detailData.PRO_IMG}` : "/images/default_project.jpg"}
+            alt="프로젝트 이미지"
+            fill
+          />
         </div>
         <div className={styles.topInfo}>
           <h3>{detailData?.PRO_TITLE}</h3>

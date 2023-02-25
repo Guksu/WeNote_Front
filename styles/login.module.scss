@@ -1,0 +1,91 @@
+@import "./color.scss";
+
+.loginModalWrapper{
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.6);
+    .modalBox{
+        padding: 25px 30px;
+        background-color: $subColor;
+        width: 300px;
+        height: 40%;
+        border-radius: 20px;
+        position: relative;
+        top: 20%;
+        &.joinModal{
+            height: 48%;
+            .inputArea{
+                margin-top: 35px;
+            }
+        }
+        .closeBtn{
+            display: flex;
+            justify-content: flex-end;
+            color: $mainColor;
+            svg{
+                cursor: pointer;
+                width: 30px !important;
+                height: 30px !important;
+            }
+        }
+        .inputArea{
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+
+            .imgBox{
+                cursor: pointer;
+                img{
+                    border-radius: 100px;
+                    width: 100px;
+                    height: 100px;
+                    object-fit: cover;
+                }
+            }
+
+            input{
+                height: 35px;
+                border: 1px solid $textColor;
+                border-radius: 15px;
+                background-color:$subColor;
+                padding: 3px 55px 5px 25px;
+                color: white;
+                font-size: 16px;
+            }
+
+            button{
+                width: 100%;
+                padding: 10px 0;
+                border: none;
+                background-color: $mainColor;
+                color: $bgColor;
+                font-size: 16px;
+                font-weight: 600;
+                border-radius: 100px;
+            }
+        }
+
+        .registerArea{
+            margin-top: 30px;
+            padding-top: 40px;
+            border-top: 1px solid $textColor;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            font-size: 18px;
+            span{
+                color: $mainColor;
+                cursor: pointer;
+                font-weight: bold;
+            }
+        }
+    }
+}

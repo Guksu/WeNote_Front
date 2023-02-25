@@ -7,33 +7,40 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import WorkIcon from "@mui/icons-material/Work";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import HomeIcon from "@mui/icons-material/Home";
+import { useState, useEffect } from "react";
+import JoinModal from "./modal/JoinModal";
+import LoginModal from "./modal/LoginModal";
+import Image from "next/image";
 
 export default function Header() {
   const isLogin = useAppStore((state) => state.isLogin);
   const router = useRouter();
   const homeQuery = useAppStore((state) => state.homeQuery);
   const homeQeuryChange = useAppStore((state) => state.queryChange);
+  const [loginOpen, setLoginOpen] = useState<boolean>(false);
+  const [joinOpen, setJoinOpen] = useState<boolean>(false);
+  const [profileImg, setProfileImg] = useState<string | null>("");
 
-  function queryChange() {
-    console.log(homeQuery);
-  }
+  useEffect(() => {
+    if (sessionStorage.getItem("profileImg") !== "") {
+      setProfileImg(sessionStorage.getItem("profileImg"));
+    } else {
+      setProfileImg("/images/default_user.png");
+    }
+  }, []);
+
   return (
     <>
       <div className={styles.allWrapper}>
         <div className={styles.topSection}>
-          <Link href={"/"} className={styles.mainLogo}>
-            WeNote
-          </Link>
+          <div className={styles.mainLogo}>WeNote</div>
           <div className={styles.searchBox}>
             <input
               placeholder="키워드 검색"
               type="text"
-              value={homeQuery.keyword}
-              onChange={(e) => homeQeuryChange({ keyword: e.currentTarget.value, category: homeQuery.category, page: 1 })}
               onKeyUp={(e) => {
                 if (e.key === "Enter") {
-                  e.preventDefault();
-                  queryChange();
+                  homeQeuryChange({ keyword: e.currentTarget.value, category: homeQuery.category, page: 1 });
                 }
               }}
             />
@@ -43,9 +50,13 @@ export default function Header() {
           </div>
           <div>
             {isLogin ? (
-              <img src="/images/default_user.png" alt="프로필 이미지" onClick={() => router.push("/profile")} className={styles.prfileImg} />
+              <div className={styles.prfileImg}>
+                <Image src={profileImg || "/images/default_user.png"} alt="프로필 이미지" onClick={() => router.push("/profile")} fill />
+              </div>
             ) : (
-              <button className={styles.loginBtn}>로그인</button>
+              <button className={styles.loginBtn} onClick={() => setLoginOpen(true)}>
+                로그인
+              </button>
             )}
           </div>
         </div>
@@ -90,6 +101,8 @@ export default function Header() {
           <p>개인 노트</p>
         </Link>
       </nav>
+      {loginOpen && <LoginModal setLoginOpen={setLoginOpen} setJoinOpen={setJoinOpen} setProfileImg={setProfileImg} />}
+      {joinOpen && <JoinModal setJoinOpen={setJoinOpen} />}
     </>
   );
 }

@@ -11,8 +11,8 @@ export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState<QueryClient>(() => new QueryClient());
   const isLoginChange = useAppStore((state) => state.isLoginChagne);
 
-  /**--------axios 설정------*/
   axios.defaults.baseURL = "http://localhost:4000";
+  axios.defaults.withCredentials = true;
 
   useEffect(() => {
     if (window.sessionStorage.getItem("token")) {
