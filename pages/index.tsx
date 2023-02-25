@@ -1,6 +1,6 @@
 import { useAppStore } from "@/store/store";
 import styles from "../styles/home.module.scss";
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback, useEffect, useLayoutEffect } from "react";
 import { HomeProjectList } from "@/interface/interface";
 import NoneData from "@/components/NoneData";
 import axios from "axios";
@@ -29,6 +29,8 @@ export default function Home({ projectListSSR }: { projectListSSR: HomeProjectLi
   const [page, setPage] = useState<string | number>(homeQuery.page);
   const [scrollCheck, setScrollCheck] = useState<boolean>(true);
   const observer = useRef<null | IntersectionObserver>(null);
+  const alertMsgChange = useAppStore((state) => state.alertMsgChange);
+  const alertTypeChange = useAppStore((state) => state.alertTypeChange);
   const category: { name: string; value: string }[] = [
     { name: "전체", value: "0" },
     { name: "스터디", value: "1" },
@@ -76,7 +78,8 @@ export default function Home({ projectListSSR }: { projectListSSR: HomeProjectLi
       setDetailOpen(true);
       setDetailId(detialId);
     } else {
-      alert("로그인 후 이용해주세요");
+      alertMsgChange("로그인 후 이용해주세요");
+      alertTypeChange("Warning");
     }
   };
 

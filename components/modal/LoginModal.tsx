@@ -3,15 +3,17 @@ import { Dispatch, SetStateAction, useState } from "react";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/router";
+import { useAppStore } from "@/store/store";
 
 type Props = {
   setLoginOpen: Dispatch<SetStateAction<boolean>>;
   setJoinOpen: Dispatch<SetStateAction<boolean>>;
-  setProfileImg: Dispatch<SetStateAction<string | null>>;
 };
 
-export default function LoginModal({ setLoginOpen, setJoinOpen, setProfileImg }: Props) {
+export default function LoginModal({ setLoginOpen, setJoinOpen }: Props) {
   const router = useRouter();
+  const alertMsgChange = useAppStore((state) => state.alertMsgChange);
+  const alertTypeChange = useAppStore((state) => state.alertTypeChange);
   const [id, setId] = useState<string>("");
   const [pw, setPw] = useState<string>("");
 
@@ -26,7 +28,8 @@ export default function LoginModal({ setLoginOpen, setJoinOpen, setProfileImg }:
     try {
       const res = await axios.patch("/account/login", { MEM_EMAIL: id, MEM_PW: pw });
       if (res.status === 202) {
-        alert("탈퇴회원입니다.");
+        alertMsgChange("해당 계정은 탈퇴되었습니다.");
+        alertTypeChange("Warning");
       } else if (res.status === 200) {
         onCloseClick();
         const profileImg = res.data.data.MEM_IMG !== "" ? `http://localhost:4000/${res.data.data.MEM_IMG}` : "";
@@ -37,7 +40,8 @@ export default function LoginModal({ setLoginOpen, setJoinOpen, setProfileImg }:
     } catch (error) {
       const { response } = error as unknown as AxiosError;
       if (response?.status === 401) {
-        alert("아이디 및 비밀번호가 일치하지 않습니다.");
+        alertMsgChange("아이디 및 비밀번호가 일치하지 않습니다.");
+        alertTypeChange("Warning");
       }
     }
   };

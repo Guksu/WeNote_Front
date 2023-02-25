@@ -15,6 +15,8 @@ import Image from "next/image";
 export default function Header() {
   const isLogin = useAppStore((state) => state.isLogin);
   const router = useRouter();
+  const alertMsgChange = useAppStore((state) => state.alertMsgChange);
+  const alertTypeChange = useAppStore((state) => state.alertTypeChange);
   const homeQuery = useAppStore((state) => state.homeQuery);
   const homeQeuryChange = useAppStore((state) => state.queryChange);
   const [loginOpen, setLoginOpen] = useState<boolean>(false);
@@ -25,7 +27,8 @@ export default function Header() {
   const onLoginCheck = (e: MouseEvent<HTMLAnchorElement, globalThis.MouseEvent>) => {
     if (!isLogin) {
       e.preventDefault();
-      alert("로그인 후 이용해주세요");
+      alertMsgChange("로그인 후 이용해주세요");
+      alertTypeChange("Warning");
     }
   };
 
@@ -111,7 +114,7 @@ export default function Header() {
           <p>개인 노트</p>
         </Link>
       </nav>
-      {loginOpen && <LoginModal setLoginOpen={setLoginOpen} setJoinOpen={setJoinOpen} setProfileImg={setProfileImg} />}
+      {loginOpen && <LoginModal setLoginOpen={setLoginOpen} setJoinOpen={setJoinOpen} />}
       {joinOpen && <JoinModal setJoinOpen={setJoinOpen} />}
     </>
   );

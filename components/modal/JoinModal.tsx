@@ -3,12 +3,15 @@ import { Dispatch, SetStateAction, useState } from "react";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import axios, { AxiosError } from "axios";
 import { getPrevImg } from "@/utils/getPrevIng";
+import { useAppStore } from "@/store/store";
 
 type Props = {
   setJoinOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 export default function JoinModal({ setJoinOpen }: Props) {
+  const alertMsgChange = useAppStore((state) => state.alertMsgChange);
+  const alertTypeChange = useAppStore((state) => state.alertTypeChange);
   const emailRegex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
   const [id, setId] = useState<string>("");
   const [pw, setPw] = useState<string>("");
@@ -34,7 +37,8 @@ export default function JoinModal({ setJoinOpen }: Props) {
         doubleClickPrevent = false;
       }, 1000);
     } else if (!emailRegex.test(id)) {
-      alert("올바른 형식의 이메일을 입력해주세요");
+      alertMsgChange("올바른 형식의 이메일을 입력해주세요.");
+      alertTypeChange("Warning");
     } else {
       doubleClickPrevent = true;
       const form = new FormData();
@@ -47,13 +51,15 @@ export default function JoinModal({ setJoinOpen }: Props) {
       try {
         const res = await axios.post("/account/join", form);
         if (res.status === 200) {
-          alert("회원가입 성공 !");
+          alertMsgChange("회원가입되셨습니다. 로그인 후 이용해주세요");
+          alertTypeChange("Success");
           onCloseClick();
         }
       } catch (error) {
         const { response } = error as unknown as AxiosError;
         if (response?.status === 400) {
-          alert("이미 등록된 이메일입니다.");
+          alertMsgChange("이미 등록된 이메일입니다.");
+          alertTypeChange("Warning");
         }
       }
     }
