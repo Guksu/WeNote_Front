@@ -9,6 +9,7 @@ import Progress from "@/components/Progress";
 import SuccessAlert from "@/components/alert/SuccessAlert";
 import WarningAlert from "@/components/alert/WarningAlert";
 import { useRouter } from "next/router";
+import ScrollTop from "@/components/ScrollTop";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -63,6 +64,7 @@ export default function App({ Component, pageProps }: AppProps) {
         {isProgress && <Progress />}
         <SuccessAlert />
         <WarningAlert />
+        <ScrollTop />
       </Layout>
     </>
   );

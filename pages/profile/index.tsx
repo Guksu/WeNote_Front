@@ -54,7 +54,9 @@ export default function Profile({ profileDataSSR }: { profileDataSSR: ProfileInf
           alertMsgChange("수정되었습니다.");
           alertTypeChange("Success");
           window.sessionStorage.setItem("profileImg", profileImg);
-          router.reload();
+          setTimeout(() => {
+            router.reload();
+          }, 1000);
         }
       } catch (error) {
         console.log(error);
