@@ -35,12 +35,18 @@ export default function App({ Component, pageProps }: AppProps) {
       },
       function (error) {
         setIsProgress(false);
-        if (error.response.status === 401) {
+        if (error.response.status === 400) {
+          alertMsgChange("이미 등록된 이메일입니다.");
+          alertTypeChange("Warning");
+        } else if (error.response.status === 401) {
           alertMsgChange("로그인 후 이용해주세요");
           alertTypeChange("Warning");
           router.push("/");
+        } else if (error.response.status === 402) {
+          alertMsgChange("아이디 및 비밀번호가 일치하지 않습니다.");
+          alertTypeChange("Warning");
         } else {
-          alertMsgChange("죄송합니다. 현재 서비스가 원활하지 않습니다. 잠시 후에 다시 시도해 주세요 ");
+          alertMsgChange(`현재 서비스가 원활하지 않습니다.`);
           alertTypeChange("Warning");
         }
         return Promise.reject(error);

@@ -7,6 +7,7 @@ import axios from "axios";
 import ProjectDetailModal from "@/components/modal/ProjectDetailModal";
 import Image from "next/image";
 import { GetServerSideProps } from "next";
+import CommonTopFiler from "@/components/CommonTopFilter";
 
 export const getServerSideProps: GetServerSideProps = async () => {
   axios.defaults.baseURL = "http://localhost:4000";
@@ -25,7 +26,7 @@ export default function Home({ projectListSSR }: { projectListSSR: HomeProjectLi
   const homeQeuryChange = useAppStore((state) => state.queryChange);
   const [detailOpen, setDetailOpen] = useState<boolean>(false);
   const [detailId, setDetailId] = useState<number>(0);
-  const [projectList, setProjectList] = useState<HomeProjectList[]>(projectListSSR);
+  const [projectList, setProjectList] = useState<HomeProjectList[]>(projectListSSR || []);
   const [page, setPage] = useState<string | number>(homeQuery.page);
   const [scrollCheck, setScrollCheck] = useState<boolean>(true);
   const observer = useRef<null | IntersectionObserver>(null);
@@ -98,21 +99,8 @@ export default function Home({ projectListSSR }: { projectListSSR: HomeProjectLi
 
   return (
     <>
-      <div className={styles.alleWrapper}>
-        <ul className={styles.categoryArea}>
-          {category.map((item) => {
-            return (
-              <li
-                key={item.value}
-                value={item.value}
-                onClick={(e) => categoryChange(e.currentTarget.value.toString())}
-                className={homeQuery.category === item.value ? styles.on : ""}
-              >
-                {item.name}
-              </li>
-            );
-          })}
-        </ul>
+      <div>
+        <CommonTopFiler category={category} categoryChange={categoryChange} valueCheck={homeQuery.category} newBtn={false} />
         <div>
           {projectList.length > 0 ? (
             <div className={styles.projectListWrapper}>

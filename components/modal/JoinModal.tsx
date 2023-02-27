@@ -1,7 +1,7 @@
 import styles from "../../styles/login.module.scss";
 import { Dispatch, SetStateAction, useState } from "react";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { getPrevImg } from "@/utils/getPrevIng";
 import { useAppStore } from "@/store/store";
 
@@ -36,8 +36,11 @@ export default function JoinModal({ setJoinOpen }: Props) {
       setTimeout(() => {
         doubleClickPrevent = false;
       }, 1000);
+    } else if (id === "" || pw === "" || nick === "") {
+      alertMsgChange("필수항목을 입력해 주세요.");
+      alertTypeChange("Warning");
     } else if (!emailRegex.test(id)) {
-      alertMsgChange("올바른 형식의 이메일을 입력해주세요.");
+      alertMsgChange("올바른 형식의 이메일을 입력해 주세요.");
       alertTypeChange("Warning");
     } else {
       doubleClickPrevent = true;
@@ -55,13 +58,7 @@ export default function JoinModal({ setJoinOpen }: Props) {
           alertTypeChange("Success");
           onCloseClick();
         }
-      } catch (error) {
-        const { response } = error as unknown as AxiosError;
-        if (response?.status === 400) {
-          alertMsgChange("이미 등록된 이메일입니다.");
-          alertTypeChange("Warning");
-        }
-      }
+      } catch (error) {}
     }
   };
 

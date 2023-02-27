@@ -21,6 +21,7 @@
     z-index: 100;
     @media (max-width:600px) {
         border: none;
+        height: 80px;
     }
     .topSection{
         @include areaPadding;
@@ -40,6 +41,7 @@
                 width: 40%;
             }
             @media (max-width:425px) {
+                margin-top: 4px;
                 width: 35%;
             }
             input{
@@ -61,6 +63,9 @@
         .prfileImg{
             position: relative;
             width: 120px;
+            @media (max-width:425px) {
+                width: 80px;
+            }
             img{
                 width: 50px !important;
                 height: 50px !important;

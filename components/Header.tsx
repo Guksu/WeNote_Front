@@ -40,6 +40,10 @@ export default function Header() {
     }
   }, []);
 
+  useEffect(() => {
+    router.asPath !== "/" && homeQeuryChange({ keyword: "", category: "0", page: 1 });
+  }, [router.asPath]);
+
   return (
     <>
       <div className={styles.allWrapper}>
@@ -54,6 +58,7 @@ export default function Header() {
               onKeyUp={(e) => {
                 if (e.key === "Enter") {
                   homeQeuryChange({ keyword: e.currentTarget.value, category: homeQuery.category, page: 1 });
+                  router.push("/");
                 }
               }}
             />

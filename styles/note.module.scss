@@ -1,0 +1,103 @@
+@import "./color.scss";
+
+.allWrapper{
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    @media (max-width:1700px) {
+        column-gap: 20px;
+    }
+    .noteBox{
+        border-radius: 10px;
+        width: 20%;
+        @media (max-width:1700px) {
+            width: 25%;
+        }
+        @media (max-width:800px) {
+            width: 40%;
+        }
+        @media (max-width:605px) {
+            width: 90%;
+        }
+        height: 200px;
+        background-color: $subColor;
+        padding: 10px 20px;
+
+        .topInfo{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+
+            h4{
+                font-size: 16px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            span{
+                cursor: pointer;
+                position: relative;
+                top: 5px;
+                right: 5px;
+                ul{
+                    position: absolute;
+                    width: 60px;
+                    padding: 5px;
+                    border: none;
+                    text-align: center;
+                    right: -20px;
+                    border-radius: 10px;
+                    font-size: 13px;
+                    background-color: #303030;
+                    cursor: pointer;
+                    li{
+                        &:hover{
+                            color: $mainColor;
+                        }
+                    }
+                }
+            }
+      
+        }
+        
+        .content{
+            color: #8e8f91;
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 25px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            display: -webkit-box;
+            min-height: 76px;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+        }
+
+        .bottomInfo{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            button{
+                border: none;
+                background-color: #303030;
+                color: #8e8f91;
+                width: 80px;
+                height: 26px;
+                border-radius: 10px;
+                margin-top: 25px;
+                padding-bottom: 2px;
+                &:hover{
+                    color: $mainColor;
+                }
+            }
+            .date{
+                color: #8e8f91;
+                margin-top: 25px;
+                font-size: 13px;
+            }
+        }
+
+    }
+}

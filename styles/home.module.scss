@@ -1,41 +1,5 @@
 @import "./color.scss";
 
-.alleWrapper{
-    .categoryArea{
-        display: flex;
-        gap:25px;
-        @media (max-width:425px) {
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        li{
-            border : 1px solid $textColor;
-            border-radius: 5px;
-            padding: 4px 12px;
-            color:$textColor;
-            font-size: 15px;
-            font-weight: 500;
-            cursor: pointer;
-            @media (max-width:600px) {
-                font-size: 13px;
-            }
-            &:hover{
-                color: white;
-                border : 1px solid white;  
-            }
-        }
-        .on{
-            color: $mainColor;
-            border : 1px solid $mainColor;  
-            &:hover{
-                color: $mainColor;
-                border : 1px solid $mainColor;  
-            }
-        }
-    }
-  
-}
-
 .projectListWrapper{
     margin-top: 15px;
     display: flex;
@@ -45,6 +9,7 @@
         column-gap: 20px;
     }
     .projectBox{
+        border-radius: 10px;
         width: 20%;
         @media (max-width:1700px) {
             width: 25%;

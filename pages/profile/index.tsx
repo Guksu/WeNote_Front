@@ -6,6 +6,7 @@ import { GetServerSideProps } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import Swal from "sweetalert2";
 import styles from "../../styles/profile.module.scss";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -40,6 +41,9 @@ export default function Profile({ profileDataSSR }: { profileDataSSR: ProfileInf
       setTimeout(() => {
         doubleClickPrevent = false;
       }, 1000);
+    } else if (nick === "") {
+      alertMsgChange("닉네임을 입력해 주세요");
+      alertTypeChange("Warning");
     } else {
       doubleClickPrevent = true;
       const form = new FormData();
@@ -64,23 +68,37 @@ export default function Profile({ profileDataSSR }: { profileDataSSR: ProfileInf
     }
   };
 
-  const onLogoutClick = () => {
-    window.sessionStorage.clear();
-    isLoginChange(false);
-    router.push("/");
-  };
-
-  const onLeaveClick = async () => {
+  const onLogoutClick = async () => {
     try {
-      const res = await axios.patch("/profile/withdrawl_membership");
+      const res = await axios.patch("/account/logout");
       if (res.status === 200) {
         window.sessionStorage.clear();
         isLoginChange(false);
         router.push("/");
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
+  };
+
+  const onLeaveClick = async () => {
+    Swal.fire({
+      text: "회원탈퇴 하시겠습니까?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#535457",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "회원탈퇴",
+      cancelButtonText: "취소",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.patch("/profile/withdrawl_membership").then((res) => {
+          if (res.status === 200) {
+            window.sessionStorage.clear();
+            isLoginChange(false);
+            router.push("/");
+          }
+        });
+      }
+    });
   };
 
   return (

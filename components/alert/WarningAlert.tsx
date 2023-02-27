@@ -15,14 +15,7 @@ function WarningAlert() {
   useEffect(() => {
     if (alertType === "Warning") {
       MySwal.fire({
-        html: (
-          <p style={{ whiteSpace: "pre-line" }}>
-            {alertMsg.length < 30
-              ? alertMsg
-              : `${alertMsg.slice(0, 6)} ${alertMsg.slice(7, 22)}\n
-                        ${alertMsg.slice(23)}`}
-          </p>
-        ),
+        html: <p>{alertMsg}</p>,
         icon: "warning",
         showConfirmButton: true,
       });

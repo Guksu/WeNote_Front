@@ -1,0 +1,89 @@
+@import "./color.scss";
+
+.modalWrapper{
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    height: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.6);
+    .modalBox{
+        padding: 25px 30px;
+        background-color: $subColor;
+        width: 50%;
+        height: 80%;
+        overflow-y: auto;
+        border-radius: 20px;
+        position: relative;
+        top:8%;
+        @media (max-width:600px) {
+            width: 80%;
+            height: 60%;
+            top: 15%;
+        }
+
+        .closeBtn{
+            display: flex;
+            justify-content: flex-end;
+            color: $mainColor;
+            svg{
+                cursor: pointer;
+                width: 30px !important;
+                height: 30px !important;
+            }
+        }
+
+        .inputArea{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+            label{
+                font-size: 18px;
+                font-weight: bold;
+            }
+            input{
+                height: 35px;
+                border: none;
+                border-radius: 10px;
+                background-color: #303030;
+                color: white;
+                padding: 5px 20px;
+                font-size: 18px;
+                &:focus { outline: none; }
+      
+            }
+            textarea{
+                border: none;
+                border-radius: 10px;
+                height: 500px;
+                background-color: #303030;
+                color: white;
+                padding: 5px 20px;
+                font-size: 18px;
+                resize: none;
+                &:focus { outline: none; }
+            }
+   
+        }
+        .btnArea{
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 30px;
+            button{
+                width: 150px;
+                border:  none;
+                background-color: $mainColor;
+                height: 40px;
+                border-radius: 10px;
+                color: $bgColor;
+                font-size: 16px;
+                font-weight: bold;
+            }
+        }
+    }
+}
