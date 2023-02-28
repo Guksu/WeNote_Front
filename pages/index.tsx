@@ -1,7 +1,7 @@
 import { useAppStore } from "@/store/store";
 import styles from "../styles/home.module.scss";
-import { useState, useRef, useCallback, useEffect, useLayoutEffect } from "react";
-import { HomeProjectList } from "@/interface/interface";
+import { useState, useRef, useCallback, useEffect } from "react";
+import { ProjectList } from "@/interface/interface";
 import NoneData from "@/components/NoneData";
 import axios from "axios";
 import ProjectDetailModal from "@/components/modal/ProjectDetailModal";
@@ -20,13 +20,13 @@ export const getServerSideProps: GetServerSideProps = async () => {
   };
 };
 
-export default function Home({ projectListSSR }: { projectListSSR: HomeProjectList[] }) {
+export default function Home({ projectListSSR }: { projectListSSR: ProjectList[] }) {
   const isLogin = useAppStore((state) => state.isLogin);
   const homeQuery = useAppStore((state) => state.homeQuery);
   const homeQeuryChange = useAppStore((state) => state.queryChange);
   const [detailOpen, setDetailOpen] = useState<boolean>(false);
   const [detailId, setDetailId] = useState<number>(0);
-  const [projectList, setProjectList] = useState<HomeProjectList[]>(projectListSSR || []);
+  const [projectList, setProjectList] = useState<ProjectList[]>(projectListSSR || []);
   const [page, setPage] = useState<string | number>(homeQuery.page);
   const [scrollCheck, setScrollCheck] = useState<boolean>(true);
   const observer = useRef<null | IntersectionObserver>(null);
@@ -93,7 +93,11 @@ export default function Home({ projectListSSR }: { projectListSSR: HomeProjectLi
   useEffect(() => {
     axios
       .get(`/project/all_list?KEYWORD=${homeQuery.keyword}&PRO_CATEGORY=${homeQuery.category}&PAGE=1`)
-      .then((res) => setProjectList(res.data.data))
+      .then((res) => {
+        if (res.data.data) {
+          setProjectList(res.data.data);
+        }
+      })
       .catch((error) => console.log(error));
   }, [homeQuery.keyword]);
 
@@ -104,7 +108,9 @@ export default function Home({ projectListSSR }: { projectListSSR: HomeProjectLi
         <div>
           {projectList.length > 0 ? (
             <div className={styles.projectListWrapper}>
-              {projectList.map((item: HomeProjectList, index: number) => {
+              {projectList.map((item: ProjectList, index: number) => {
+                const date = new Date(item.PRO_REG_DT).toLocaleDateString();
+
                 return (
                   <div key={item.PRO_ID} className={styles.projectBox} ref={projectList.length === index + 1 ? lastDataRef : null}>
                     <div>
@@ -117,8 +123,11 @@ export default function Home({ projectListSSR }: { projectListSSR: HomeProjectLi
                         />
                       </div>
                     </div>
-                    <p>{item.PRO_CONTENT}</p>
-                    <button onClick={() => onDetailClick(item.PRO_ID)}>상세보기</button>
+                    <div className={styles.content}>{item.PRO_CONTENT}</div>
+                    <div className={styles.bottomInfo}>
+                      <div className={styles.date}>{date}</div>
+                      <button onClick={() => onDetailClick(item.PRO_ID)}>상세보기</button>
+                    </div>
                   </div>
                 );
               })}

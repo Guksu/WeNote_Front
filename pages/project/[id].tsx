@@ -6,14 +6,16 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import styles from "../../styles/note.module.scss";
 import NoneData from "@/components/NoneData";
 import Swal from "sweetalert2";
-import NoteCreateModal from "@/components/modal/NoteCreateModal";
-import NoteDetailModal from "@/components/modal/NoteDetailModal";
-import { NoteList } from "@/interface/interface";
+import { ProjectNoteList } from "@/interface/interface";
+import { useRouter } from "next/router";
+import ProjectNoteCreateModal from "@/components/modal/ProjectNoteCreateModal";
+import ProjectNoteDetailModal from "@/components/modal/ProjectNoteDetailModal";
+import Image from "next/image";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = context.req.headers.cookie?.split("; ") || "";
 
-  const res = await axios.get(`/note/all_list`, {
+  const res = await axios.get(`/project_note/all_list/${context.query.id}`, {
     headers: { Cookie: cookies },
   });
 
@@ -24,9 +26,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-export default function Note({ noteDataSRR }: { noteDataSRR: NoteList[] }) {
-  const [noteData, setNoteData] = useState<NoteList[]>(noteDataSRR || []);
-  const [showData, setShowDate] = useState<NoteList[]>(noteDataSRR.filter((item) => item.NOTE_STATE === "W") || []);
+export default function projectDetail({ noteDataSRR }: { noteDataSRR: ProjectNoteList[] }) {
+  const router = useRouter();
+  const [noteData, setNoteData] = useState<ProjectNoteList[]>(noteDataSRR || []);
+  const [showData, setShowDate] = useState<ProjectNoteList[]>(noteDataSRR.filter((item) => item.PRO_NOTE_STATE === "W") || []);
   const category: { name: string; value: string }[] = [
     { name: "진행 예정", value: "W" },
     { name: "진행 중", value: "P" },
@@ -51,16 +54,16 @@ export default function Note({ noteDataSRR }: { noteDataSRR: NoteList[] }) {
 
   const dataRefresh = async () => {
     try {
-      const res = await axios.get("/note/all_list");
+      const res = await axios.get(`/project_note/all_list/${router.query.id}`);
       if (res.status === 200) {
         setNoteData(res.data.data);
-        setShowDate(res.data.data.filter((item: NoteList) => item.NOTE_STATE === categoryValue));
+        setShowDate(res.data.data.filter((item: ProjectNoteList) => item.PRO_NOTE_STATE === categoryValue));
       }
     } catch (error) {}
   };
 
   const stateChangeRefresh = (id: number, state: string) => {
-    axios.patch(`/note/state_change/${id}`, { NOTE_STATE: state }).then((res1) => {
+    axios.patch(`/project_note/state_change/${id}`, { PRO_NOTE_STATE: state }).then((res1) => {
       dataRefresh();
     });
   };
@@ -86,7 +89,7 @@ export default function Note({ noteDataSRR }: { noteDataSRR: NoteList[] }) {
   };
 
   useEffect(() => {
-    setShowDate(noteData.filter((item) => item.NOTE_STATE === categoryValue));
+    setShowDate(noteData.filter((item) => item.PRO_NOTE_STATE === categoryValue));
   }, [categoryValue]);
 
   return (
@@ -96,44 +99,50 @@ export default function Note({ noteDataSRR }: { noteDataSRR: NoteList[] }) {
         {showData.length > 0 ? (
           <div className={styles.allWrapper}>
             {showData.map((item) => {
-              const date = new Date(item.NOTE_REG_DT).toLocaleDateString();
+              const date = new Date(item.PRO_NOTE_REG_DT).toLocaleDateString();
               return (
-                <div className={styles.noteBox} key={item.NOTE_ID}>
+                <div className={styles.noteBox} key={item.PRO_NOTE_ID}>
                   <div className={styles.topInfo}>
-                    <h4>{item.NOTE_TITLE}</h4>
-                    <span>
-                      <MoreHorizIcon
-                        onClick={(e) => {
-                          setStateChangeOpen(item.NOTE_ID);
-                          e.stopPropagation();
-                        }}
-                      />
-                      <ul style={{ display: stateChangeOpen === item.NOTE_ID ? "" : "none" }}>
-                        {noteStateList
-                          .filter((state) => state.value !== categoryValue)
-                          .map((item2) => {
-                            return (
-                              <li
-                                key={item2.value}
-                                value={item2.value}
-                                onClick={() => {
-                                  onNoteStateChange(item.NOTE_ID, item2.value);
-                                }}
-                              >
-                                {item2.name}
-                              </li>
-                            );
-                          })}
-                      </ul>
-                    </span>
+                    <h4>{item.PRO_NOTE_ID}</h4>
+                    {item.ISOWNER === "Y" ? (
+                      <span>
+                        <MoreHorizIcon
+                          onClick={(e) => {
+                            setStateChangeOpen(item.PRO_NOTE_ID);
+                            e.stopPropagation();
+                          }}
+                        />
+                        <ul style={{ display: stateChangeOpen === item.PRO_NOTE_ID ? "" : "none" }}>
+                          {noteStateList
+                            .filter((state) => state.value !== categoryValue)
+                            .map((item2) => {
+                              return (
+                                <li
+                                  key={item2.value}
+                                  value={item2.value}
+                                  onClick={() => {
+                                    onNoteStateChange(item.PRO_NOTE_ID, item2.value);
+                                  }}
+                                >
+                                  {item2.name}
+                                </li>
+                              );
+                            })}
+                        </ul>
+                      </span>
+                    ) : (
+                      <div className={styles.imgArea}>
+                        <Image src={item.MEM_IMG ? `http://localhost:4000/${item.MEM_IMG}` : "/images/default_user.png"} alt={"유저 이미지"} fill />
+                      </div>
+                    )}
                   </div>
-                  <div className={styles.content}>{item.NOTE_CONTENT}</div>
+                  <div className={styles.content}>{item.PRO_NOTE_CONTENT}</div>
                   <div className={styles.bottomInfo}>
                     <div className={styles.date}>{date}</div>
                     <button
                       onClick={() => {
                         setDetailOpen(true);
-                        setDetailId(item.NOTE_ID);
+                        setDetailId(item.PRO_NOTE_ID);
                       }}
                     >
                       상세보기
@@ -147,8 +156,8 @@ export default function Note({ noteDataSRR }: { noteDataSRR: NoteList[] }) {
           <NoneData text="등록된 노트가 없습니다" />
         )}
       </div>
-      {newBtnOpen && <NoteCreateModal setNewBtnOpen={setNewBtnOpen} dataRefresh={dataRefresh} />}
-      {detailOpen && <NoteDetailModal setDetailOpen={setDetailOpen} dataRefresh={dataRefresh} detailId={detailId} />}
+      {newBtnOpen && <ProjectNoteCreateModal setNewBtnOpen={setNewBtnOpen} dataRefresh={dataRefresh} />}
+      {detailOpen && <ProjectNoteDetailModal setDetailOpen={setDetailOpen} dataRefresh={dataRefresh} detailId={detailId} />}
     </>
   );
 }

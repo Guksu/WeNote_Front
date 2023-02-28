@@ -4,6 +4,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import axios from "axios";
 import { ProjectDetail } from "@/interface/interface";
 import Image from "next/image";
+import { useAppStore } from "@/store/store";
 
 type Props = {
   setDetailOpen: Dispatch<SetStateAction<boolean>>;
@@ -12,6 +13,8 @@ type Props = {
 
 export default function ProjectDetailModal({ setDetailOpen, detailId }: Props) {
   const [detailData, setDetailDate] = useState<ProjectDetail>();
+  const alertMsgChange = useAppStore((state) => state.alertMsgChange);
+  const alertTypeChange = useAppStore((state) => state.alertTypeChange);
   //----------------------function-----------------
   const getDetailData = async () => {
     try {
@@ -20,6 +23,19 @@ export default function ProjectDetailModal({ setDetailOpen, detailId }: Props) {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const onJoinClick = async () => {
+    try {
+      const res = await axios.post("/project/participation", { PRO_ID: detailId });
+      if (res.status === 200) {
+        alertMsgChange("참여신청 되었습니다.");
+        alertTypeChange("Success");
+        setTimeout(() => {
+          setDetailOpen(false);
+        }, 1000);
+      }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -52,7 +68,7 @@ export default function ProjectDetailModal({ setDetailOpen, detailId }: Props) {
         </div>
         <div className={styles.topInfo}>
           <h3>{detailData?.PRO_TITLE}</h3>
-          {detailData?.MEMBER_CHECK === "Y" ? <button className={styles.on}>참여중</button> : <button>참여하기</button>}
+          {detailData?.MEMBER_CHECK === "Y" ? <button className={styles.on}>참여중</button> : <button onClick={onJoinClick}>참여하기</button>}
         </div>
         <p>{detailData?.PRO_CONTENT}</p>
       </div>

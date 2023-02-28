@@ -1,7 +1,7 @@
 @import "./color.scss";
 
 .projectListWrapper{
-    margin-top: 15px;
+    margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
@@ -23,9 +23,13 @@
         @media (max-width:605px) {
             width: 90%;
         }
-        height: 180px;
+        height: 200px;
         background-color: $subColor;
         padding: 10px 20px;
+
+        svg{
+            color: $mainColor;
+        }
 
         div{
             display: flex;
@@ -50,27 +54,67 @@
             }
         }
         
-        p{
+        .content{
             color: #8e8f91;
             font-size: 15px;
             font-weight: 500;
             line-height: 25px;
-            white-space: nowrap;
-            overflow: hidden;
             text-overflow: ellipsis;
+            overflow: hidden;
+            display: -webkit-box;
+            min-height: 76px;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
         }
-
-        button{
-            border: none;
-            background-color: #303030;
-            color: #8e8f91;
-            width: 80px;
-            height: 26px;
-            border-radius: 10px;
-            margin-top: 25px;
-            padding-bottom: 2px;
-            &:hover{
+        .bottomInfo{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            button{
+                border: none;
+                background-color: #303030;
+                color: #8e8f91;
+                width: 80px;
+                height: 26px;
+                border-radius: 10px;
+                margin-top: 25px;
+                padding-bottom: 2px;
+                &:hover{
+                    color: $mainColor;
+                }
+            }
+            .endBtn{
+                border: none;
+                background-color: #303030;
+                color: #8e8f91;
+                width: 80px;
+                height: 26px;
+                border-radius: 10px;
+                margin-top: 25px;
+                padding-bottom: 2px;
+                cursor: text;
+                &:hover{
+                    color: #8e8f91;
+                }
+            }
+            .progressBtn{
+                border: none;
+                background-color: #303030;
                 color: $mainColor;
+                width: 80px;
+                height: 26px;
+                border-radius: 10px;
+                margin-top: 25px;
+                padding-bottom: 2px;
+                cursor: text;
+                &:hover{
+                    color:$mainColor;
+                }
+            }
+            .date{
+                color: #8e8f91;
+                margin-top: 25px;
+                font-size: 13px;
             }
         }
     }
@@ -120,7 +164,7 @@
                 }
 
                 border-radius: 10px;
-                object-fit: cover;
+                object-fit: contain;
             }
         }
         .topInfo{
