@@ -43,3 +43,10 @@ export interface ProjectNoteList {
   MEM_IMG: string;
   ISOWNER: string;
 }
+
+export interface ProjectMemberList {
+  MEM_ID: number;
+  MEM_NICK: string;
+  MEM_IMG: string;
+  PRO_MEM_ROLE: string;
+}

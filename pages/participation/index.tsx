@@ -1,3 +1,7 @@
 export default function Participation() {
-  return <div>참가현황</div>;
+  return (
+    <>
+      <div>보류</div>
+    </>
+  );
 }

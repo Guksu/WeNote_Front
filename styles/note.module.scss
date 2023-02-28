@@ -114,3 +114,25 @@
         object-fit: cover;
     }
 }
+
+.projectTitle{
+    margin-bottom: 20px;
+    span{
+        font-size: 18px;
+        color: $mainColor;
+        font-weight: bold;
+    }
+    button{
+        margin-left: 20px;
+        border: none;
+        background-color: #303030;
+        color: #8e8f91;
+        width: 80px;
+        height: 26px;
+        border-radius: 10px;
+        padding-bottom: 2px;
+        &:hover{
+            color: $mainColor;
+        }
+    }
+}

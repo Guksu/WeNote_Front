@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import ProjectNoteCreateModal from "@/components/modal/ProjectNoteCreateModal";
 import ProjectNoteDetailModal from "@/components/modal/ProjectNoteDetailModal";
 import Image from "next/image";
+import ProjectMemberModal from "@/components/modal/projectMemberModal";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = context.req.headers.cookie?.split("; ") || "";
@@ -46,6 +47,7 @@ export default function projectDetail({ noteDataSRR }: { noteDataSRR: ProjectNot
   const [newBtnOpen, setNewBtnOpen] = useState<boolean>(false);
   const [detailOpen, setDetailOpen] = useState<boolean>(false);
   const [detailId, setDetailId] = useState<number>(0);
+  const [memberOpen, setMemberOpen] = useState<boolean>(false);
   //-------------------function----------------------------------//
   const categoryChange = (value: string) => {
     setCategoryValue(value);
@@ -94,6 +96,9 @@ export default function projectDetail({ noteDataSRR }: { noteDataSRR: ProjectNot
 
   return (
     <>
+      <div className={styles.projectTitle}>
+        <span>{router.query.title}</span> <button onClick={() => setMemberOpen(true)}>팀원목록</button>
+      </div>
       <CommonTopFiler category={category} categoryChange={categoryChange} valueCheck={categoryValue} newBtn={true} setNewBtnOpen={setNewBtnOpen} />
       <div onClick={(e) => setStateChangeOpen(0)}>
         {showData.length > 0 ? (
@@ -158,6 +163,7 @@ export default function projectDetail({ noteDataSRR }: { noteDataSRR: ProjectNot
       </div>
       {newBtnOpen && <ProjectNoteCreateModal setNewBtnOpen={setNewBtnOpen} dataRefresh={dataRefresh} />}
       {detailOpen && <ProjectNoteDetailModal setDetailOpen={setDetailOpen} dataRefresh={dataRefresh} detailId={detailId} />}
+      {memberOpen && <ProjectMemberModal setMemberOpen={setMemberOpen} />}
     </>
   );
 }

@@ -75,7 +75,7 @@ export default function Project({ allProjectListSSR, myProjectListSSR }: { allPr
                   key={item.PRO_ID}
                   className={styles.projectBox}
                   style={{ cursor: "pointer" }}
-                  onClick={() => router.push(`/project/${item.PRO_ID}`)}
+                  onClick={() => router.push(`/project/${item.PRO_ID}?title=${item.PRO_TITLE}`)}
                 >
                   <div>
                     <h4>{item.PRO_TITLE}</h4>
@@ -88,7 +88,12 @@ export default function Project({ allProjectListSSR, myProjectListSSR }: { allPr
                         />
                       </div>
                     ) : (
-                      <div onClick={() => onUpdateClick(item.PRO_ID)}>
+                      <div
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onUpdateClick(item.PRO_ID);
+                        }}
+                      >
                         <EditIcon />
                       </div>
                     )}

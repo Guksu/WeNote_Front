@@ -82,9 +82,9 @@ export default function Header() {
           <Link href={"/"} className={router.asPath === "/" ? styles.on : ""}>
             홈
           </Link>
-          <Link href={"/participation"} className={router.asPath.includes("/participation") ? styles.on : ""} onClick={(e) => onLoginCheck(e)}>
-            참가현황
-          </Link>
+          {/* <Link href={"/participation"} className={router.asPath.includes("/participation") ? styles.on : ""} onClick={(e) => onLoginCheck(e)}>
+            참여현황
+          </Link> */}
           <Link href={"/project"} className={router.asPath.includes("/project") ? styles.on : ""} onClick={(e) => onLoginCheck(e)}>
             프로젝트
           </Link>
@@ -100,12 +100,12 @@ export default function Header() {
           </span>
           <p>홈</p>
         </Link>
-        <Link href={"/participation"} className={router.asPath.includes("/participation") ? styles.on : ""} onClick={(e) => onLoginCheck(e)}>
+        {/* <Link href={"/participation"} className={router.asPath.includes("/participation") ? styles.on : ""} onClick={(e) => onLoginCheck(e)}>
           <span>
             <EventAvailableIcon />
           </span>
-          <p>참가현황</p>
-        </Link>
+          <p>참여현황</p>
+        </Link> */}
         <Link href={"/project"} className={router.asPath.includes("/project") ? styles.on : ""} onClick={(e) => onLoginCheck(e)}>
           <span>
             <WorkIcon />
