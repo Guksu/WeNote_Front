@@ -138,7 +138,7 @@ export default function ProjectDetail({ noteDataSRR }: { noteDataSRR: ProjectNot
                     ) : (
                       <div className={styles.imgArea}>
                         <Image
-                          src={item.MEM_IMG ? `${process.env.SERVER_URL}/${item.MEM_IMG}` : "/images/default_user.png"}
+                          src={item.MEM_IMG ? `${process.env.NEXT_PUBLIC_SERVER_URL}/${item.MEM_IMG}` : "/images/default_user.png"}
                           alt={"유저 이미지"}
                           fill
                         />

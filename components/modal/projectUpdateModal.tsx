@@ -44,7 +44,7 @@ export default function ProjectUpdateModal({ setUpdateOpen, dataRefresh, project
       if (res.status === 200) {
         setTitle(res.data.data.PRO_TITLE);
         setContent(res.data.data.PRO_CONTENT);
-        setProjectImg(res.data.data.PRO_IMG ? `${process.env.SERVER_URL}/${res.data.data.PRO_IMG}` : "/images/photo_add.png");
+        setProjectImg(res.data.data.PRO_IMG ? `${process.env.NEXT_PUBLIC_SERVER_URL}/${res.data.data.PRO_IMG}` : "/images/photo_add.png");
         setProjectState(res.data.data.PRO_STATE);
         setProjectCategory(res.data.data.PRO_CATEGORY);
       }

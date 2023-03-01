@@ -82,7 +82,7 @@ export default function Project({ allProjectListSSR, myProjectListSSR }: { allPr
                     {categoryValue === "1" ? (
                       <div className={styles.imgArea}>
                         <Image
-                          src={item.PRO_IMG ? `${process.env.SERVER_URL}/${item.PRO_IMG}` : "/images/default_project.jpg"}
+                          src={item.PRO_IMG ? `${process.env.NEXT_PUBLIC_SERVER_URL}/${item.PRO_IMG}` : "/images/default_project.jpg"}
                           alt={"프로젝트 이미지"}
                           fill
                         />

@@ -42,7 +42,11 @@ export default function ProjectMemberModal({ setMemberOpen }: Props) {
               return (
                 <div key={item.MEM_ID} className={styles.memberInfo}>
                   <div className={styles.imgBox}>
-                    <Image src={item.MEM_IMG ? `${process.env.SERVER_URL}/${item.MEM_IMG}` : "/images/default_user.png"} alt={"멤버 이미지"} fill />
+                    <Image
+                      src={item.MEM_IMG ? `${process.env.NEXT_PUBLIC_SERVER_URL}/${item.MEM_IMG}` : "/images/default_user.png"}
+                      alt={"멤버 이미지"}
+                      fill
+                    />
                   </div>
                   <div>
                     <div>{item.MEM_NICK}</div>
