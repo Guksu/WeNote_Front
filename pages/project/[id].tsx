@@ -27,7 +27,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-export default function projectDetail({ noteDataSRR }: { noteDataSRR: ProjectNoteList[] }) {
+export default function ProjectDetail({ noteDataSRR }: { noteDataSRR: ProjectNoteList[] }) {
   const router = useRouter();
   const [noteData, setNoteData] = useState<ProjectNoteList[]>(noteDataSRR || []);
   const [showData, setShowDate] = useState<ProjectNoteList[]>(noteDataSRR.filter((item) => item.PRO_NOTE_STATE === "W") || []);
