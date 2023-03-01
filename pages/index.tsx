@@ -10,7 +10,7 @@ import { GetServerSideProps } from "next";
 import CommonTopFiler from "@/components/CommonTopFilter";
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  axios.defaults.baseURL = "http://localhost:4000";
+  axios.defaults.baseURL = `${process.env.SERVER_URL}`;
   const res = await axios.get(`/project/all_list?KEYWORD&PRO_CATEGORY=0&PAGE=1`);
 
   return {
@@ -117,7 +117,7 @@ export default function Home({ projectListSSR }: { projectListSSR: ProjectList[]
                       <h4>{item.PRO_TITLE}</h4>
                       <div className={styles.imgArea}>
                         <Image
-                          src={item.PRO_IMG ? `http://localhost:4000/${item.PRO_IMG}` : "/images/default_project.jpg"}
+                          src={item.PRO_IMG ? `${process.env.SERVER_URL}/${item.PRO_IMG}` : "/images/default_project.jpg"}
                           alt={"프로젝트 이미지"}
                           fill
                         />

@@ -19,7 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const alertTypeChange = useAppStore((state) => state.alertTypeChange);
 
   useEffect(() => {
-    axios.defaults.baseURL = "http://localhost:4000";
+    axios.defaults.baseURL = `${process.env.SERVER_URL}`;
     axios.defaults.withCredentials = true;
 
     // 요청 인터셉터

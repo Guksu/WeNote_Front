@@ -28,7 +28,7 @@ export default function Profile({ profileDataSSR }: { profileDataSSR: ProfileInf
   const isLoginChange = useAppStore((state) => state.isLoginChagne);
   const [nick, setNick] = useState<string>(profileDataSSR.MEM_NICK);
   const [profileImg, setProfileImg] = useState<string>(
-    profileDataSSR.MEM_IMG === "" ? "/images/photo_add.png" : `http://localhost:4000/${profileDataSSR.MEM_IMG}`
+    profileDataSSR.MEM_IMG === "" ? "/images/photo_add.png" : `${process.env.SERVER_URL}/${profileDataSSR.MEM_IMG}`
   );
   const [profileImgFile, setProfileImgFile] = useState<FileList | null>(null);
   const alertMsgChange = useAppStore((state) => state.alertMsgChange);
@@ -54,7 +54,7 @@ export default function Profile({ profileDataSSR }: { profileDataSSR: ProfileInf
       try {
         const res = await axios.patch("/profile/update", form);
         if (res.status === 200) {
-          const profileImg = res.data.data.MEM_IMG !== "" ? `http://localhost:4000/${res.data.data.MEM_IMG}` : "";
+          const profileImg = res.data.data.MEM_IMG !== "" ? `${process.env.SERVER_URL}/${res.data.data.MEM_IMG}` : "";
           alertMsgChange("수정되었습니다.");
           alertTypeChange("Success");
           window.sessionStorage.setItem("profileImg", profileImg);

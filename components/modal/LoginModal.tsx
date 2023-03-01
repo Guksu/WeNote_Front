@@ -36,7 +36,7 @@ export default function LoginModal({ setLoginOpen, setJoinOpen }: Props) {
           alertTypeChange("Warning");
         } else if (res.status === 200) {
           onCloseClick();
-          const profileImg = res.data.data.MEM_IMG !== "" ? `http://localhost:4000/${res.data.data.MEM_IMG}` : "";
+          const profileImg = res.data.data.MEM_IMG !== "" ? `${process.env.SERVER_URL}/${res.data.data.MEM_IMG}` : "";
           window.sessionStorage.setItem("token", res.data.data.accessToken);
           window.sessionStorage.setItem("profileImg", profileImg);
           router.reload();

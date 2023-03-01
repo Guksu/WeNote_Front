@@ -61,7 +61,7 @@ export default function ProjectDetailModal({ setDetailOpen, detailId }: Props) {
         </div>
         <div className={styles.imgArea}>
           <Image
-            src={detailData?.PRO_IMG ? `http://localhost:4000/${detailData.PRO_IMG}` : "/images/default_project.jpg"}
+            src={detailData?.PRO_IMG ? `${process.env.SERVER_URL}/${detailData.PRO_IMG}` : "/images/default_project.jpg"}
             alt="프로젝트 이미지"
             fill
           />

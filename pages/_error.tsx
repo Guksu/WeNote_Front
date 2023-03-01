@@ -1,3 +1,9 @@
+import NoneData from "@/components/NoneData";
+
 export default function ErrorPage500() {
-  return <div>500에러</div>;
+  return (
+    <>
+      <NoneData text="현재 서비스가 원활하지 않습니다." />
+    </>
+  );
 }
