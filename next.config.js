@@ -26,7 +26,7 @@ const nextConfig = {
     ];
   },
   images: {
-    domains: ["localhost", "*"],
+    domains: ["localhost", "*", "https://port-0-wenote-back-4uvg2mleqmc0d8.sel3.cloudtype.app/"],
   },
 };
 
