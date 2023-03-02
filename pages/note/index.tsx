@@ -51,7 +51,7 @@ export default function Note({ noteDataSRR }: { noteDataSRR: NoteList[] }) {
 
   const dataRefresh = async () => {
     try {
-      const res = await axios.get(`/note/all_list?memId=${sessionStorage.getItem("memId")}`);
+      const res = await axios.get(`/note/all_list?memId=${typeof window !== "undefined" ? sessionStorage.getItem("memId") : ""}`);
       if (res.status === 200) {
         setNoteData(res.data.data);
         setShowDate(res.data.data.filter((item: NoteList) => item.NOTE_STATE === categoryValue));
@@ -60,9 +60,11 @@ export default function Note({ noteDataSRR }: { noteDataSRR: NoteList[] }) {
   };
 
   const stateChangeRefresh = (id: number, state: string) => {
-    axios.patch(`/note/state_change/${id}?memId=${sessionStorage.getItem("memId")}`, { NOTE_STATE: state }).then((res1) => {
-      dataRefresh();
-    });
+    axios
+      .patch(`/note/state_change/${id}?memId=${typeof window !== "undefined" ? sessionStorage.getItem("memId") : ""}`, { NOTE_STATE: state })
+      .then((res1) => {
+        dataRefresh();
+      });
   };
 
   const onNoteStateChange = (id: number, state: string) => {

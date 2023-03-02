@@ -39,7 +39,10 @@ export default function ProjectNoteCreateModal({ setNewBtnOpen, dataRefresh }: P
         form.append("PRO_NOTE_TITLE", `${title}`);
         form.append("PRO_NOTE_CONTENT", `${content}`);
 
-        const res = await axios.post(`/project_note/create/${router.query.id}?memId=${sessionStorage.getItem("memId")}`, form);
+        const res = await axios.post(
+          `/project_note/create/${router.query.id}?memId=${typeof window !== "undefined" ? sessionStorage.getItem("memId") : ""}`,
+          form
+        );
         if (res.status === 200) {
           alertMsgChange("등록되었습니다.");
           alertTypeChange("Success");

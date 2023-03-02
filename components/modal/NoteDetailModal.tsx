@@ -38,7 +38,7 @@ export default function NoteDetailModal({ setDetailOpen, dataRefresh, detailId }
         form.append("NOTE_TITLE", `${title}`);
         form.append("NOTE_CONTENT", `${content}`);
 
-        const res = await axios.patch(`/note/update/${detailId}?memId=${sessionStorage.getItem("memId")}`, form);
+        const res = await axios.patch(`/note/update/${detailId}?memId=${typeof window !== "undefined" ? sessionStorage.getItem("memId") : ""}`, form);
         if (res.status === 200) {
           alertMsgChange("수정되었습니다.");
           alertTypeChange("Success");
@@ -53,7 +53,7 @@ export default function NoteDetailModal({ setDetailOpen, dataRefresh, detailId }
 
   const getDetailData = async (id: number) => {
     try {
-      const res = await axios.get(`/note/detail/${id}?memId=${sessionStorage.getItem("memId")}`);
+      const res = await axios.get(`/note/detail/${id}?memId=${typeof window !== "undefined" ? sessionStorage.getItem("memId") : ""}`);
       if (res.status === 200) {
         setTitle(res.data.data.NOTE_TITLE);
         setContent(res.data.data.NOTE_CONTENT);

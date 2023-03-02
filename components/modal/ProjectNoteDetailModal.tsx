@@ -39,7 +39,10 @@ export default function ProjectNoteDetailModal({ setDetailOpen, dataRefresh, det
         form.append("PRO_NOTE_TITLE", `${title}`);
         form.append("PRO_NOTE_CONTENT", `${content}`);
 
-        const res = await axios.patch(`/project_note/update/${detailId}?memId=${sessionStorage.getItem("memId")}`, form);
+        const res = await axios.patch(
+          `/project_note/update/${detailId}?memId=${typeof window !== "undefined" ? sessionStorage.getItem("memId") : ""}`,
+          form
+        );
         if (res.status === 200) {
           alertMsgChange("수정되었습니다.");
           alertTypeChange("Success");
@@ -54,7 +57,7 @@ export default function ProjectNoteDetailModal({ setDetailOpen, dataRefresh, det
 
   const getDetailData = async (id: number) => {
     try {
-      const res = await axios.get(`/project_note/detail/${id}?memId=${sessionStorage.getItem("memId")}`);
+      const res = await axios.get(`/project_note/detail/${id}?memId=${typeof window !== "undefined" ? sessionStorage.getItem("memId") : ""}`);
       if (res.status === 200) {
         setTitle(res.data.data[0].PRO_NOTE_TITLE);
         setContent(res.data.data[0].PRO_NOTE_CONTENT);

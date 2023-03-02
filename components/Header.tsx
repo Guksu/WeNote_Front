@@ -72,7 +72,7 @@ export default function Header() {
                 <Image
                   src={profileImg || "/images/default_user.png"}
                   alt="프로필 이미지"
-                  onClick={() => router.push(`/profile?memId=${sessionStorage.getItem("memId")}`)}
+                  onClick={() => router.push(`/profile?memId=${typeof window !== "undefined" ? sessionStorage.getItem("memId") : ""}`)}
                   fill
                 />
               </div>
@@ -91,14 +91,14 @@ export default function Header() {
             참여현황
           </Link> */}
           <Link
-            href={`/project?memId=${sessionStorage.getItem("memId")}`}
+            href={`/project?memId=${typeof window !== "undefined" ? sessionStorage.getItem("memId") : ""}`}
             className={router.asPath.includes("/project") ? styles.on : ""}
             onClick={(e) => onLoginCheck(e)}
           >
             프로젝트
           </Link>
           <Link
-            href={`/note?memId=${sessionStorage.getItem("memId")}`}
+            href={`/note?memId=${typeof window !== "undefined" ? sessionStorage.getItem("memId") : ""}`}
             className={router.asPath.includes("/note") ? styles.on : ""}
             onClick={(e) => onLoginCheck(e)}
           >
@@ -120,7 +120,7 @@ export default function Header() {
           <p>참여현황</p>
         </Link> */}
         <Link
-          href={`/project?memId=${sessionStorage.getItem("memId")}`}
+          href={`/project?memId=${typeof window !== "undefined" ? sessionStorage.getItem("memId") : ""}`}
           className={router.asPath.includes("/project") ? styles.on : ""}
           onClick={(e) => onLoginCheck(e)}
         >
@@ -130,7 +130,7 @@ export default function Header() {
           <p>프로젝트</p>
         </Link>
         <Link
-          href={`/note?memId=${sessionStorage.getItem("memId")}`}
+          href={`/note?memId=${typeof window !== "undefined" ? sessionStorage.getItem("memId") : ""}`}
           className={router.asPath.includes("/note") ? styles.on : ""}
           onClick={(e) => onLoginCheck(e)}
         >

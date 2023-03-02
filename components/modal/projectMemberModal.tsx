@@ -21,7 +21,9 @@ export default function ProjectMemberModal({ setMemberOpen }: Props) {
   };
 
   const getData = async () => {
-    const res = await axios.get(`/project/project_member_list/${router.query.id}?memId=${sessionStorage.getItem("memId")}`);
+    const res = await axios.get(
+      `/project/project_member_list/${router.query.id}?memId=${typeof window !== "undefined" ? sessionStorage.getItem("memId") : ""}`
+    );
     if (res.status === 200) {
       setMemberData(res.data.data);
     }

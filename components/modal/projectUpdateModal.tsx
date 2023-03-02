@@ -40,7 +40,7 @@ export default function ProjectUpdateModal({ setUpdateOpen, dataRefresh, project
 
   const getData = async () => {
     try {
-      const res = await axios.get(`/project/detail/${projectId}?memId=${sessionStorage.getItem("memId")}`);
+      const res = await axios.get(`/project/detail/${projectId}?memId=${typeof window !== "undefined" ? sessionStorage.getItem("memId") : ""}`);
       if (res.status === 200) {
         setTitle(res.data.data.PRO_TITLE);
         setContent(res.data.data.PRO_CONTENT);
@@ -71,7 +71,10 @@ export default function ProjectUpdateModal({ setUpdateOpen, dataRefresh, project
         form.append("PRO_CONTENT", content);
         form.append("PRO_STATE", projectState);
 
-        const res = await axios.patch(`/project/update/${projectId}?memId=${sessionStorage.getItem("memId")}`, form);
+        const res = await axios.patch(
+          `/project/update/${projectId}?memId=${typeof window !== "undefined" ? sessionStorage.getItem("memId") : ""}`,
+          form
+        );
         if (res.status === 200) {
           alertMsgChange("수정되었습니다.");
           alertTypeChange("Success");

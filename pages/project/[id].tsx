@@ -56,7 +56,9 @@ export default function ProjectDetail({ noteDataSRR }: { noteDataSRR: ProjectNot
 
   const dataRefresh = async () => {
     try {
-      const res = await axios.get(`/project_note/all_list/${router.query.id}?memId=${sessionStorage.getItem("memId")}`);
+      const res = await axios.get(
+        `/project_note/all_list/${router.query.id}?memId=${typeof window !== "undefined" ? sessionStorage.getItem("memId") : ""}`
+      );
       if (res.status === 200) {
         setNoteData(res.data.data);
         setShowDate(res.data.data.filter((item: ProjectNoteList) => item.PRO_NOTE_STATE === categoryValue));
@@ -65,9 +67,13 @@ export default function ProjectDetail({ noteDataSRR }: { noteDataSRR: ProjectNot
   };
 
   const stateChangeRefresh = (id: number, state: string) => {
-    axios.patch(`/project_note/state_change/${id}?memId=${sessionStorage.getItem("memId")}`, { PRO_NOTE_STATE: state }).then((res1) => {
-      dataRefresh();
-    });
+    axios
+      .patch(`/project_note/state_change/${id}?memId=${typeof window !== "undefined" ? sessionStorage.getItem("memId") : ""}`, {
+        PRO_NOTE_STATE: state,
+      })
+      .then((res1) => {
+        dataRefresh();
+      });
   };
 
   const onNoteStateChange = (id: number, state: string) => {
