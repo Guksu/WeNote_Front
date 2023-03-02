@@ -30,7 +30,7 @@ export default function LoginModal({ setLoginOpen, setJoinOpen }: Props) {
       alertTypeChange("Warning");
     } else {
       try {
-        const res = await axios.patch("/account/login", { MEM_EMAIL: id, MEM_PW: pw });
+        const res = await axios.patch("/account/login", { MEM_EMAIL: id, MEM_PW: pw }, { withCredentials: true });
         if (res.status === 202) {
           alertMsgChange("해당 계정은 탈퇴되었습니다.");
           alertTypeChange("Warning");
