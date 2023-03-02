@@ -14,15 +14,17 @@
         padding: 25px 30px;
         background-color: $subColor;
         width: 300px;
-        @media (max-width:325px) {
-            width: 95%;
+        @media (max-width:360px) {
+            width: 75%;
         }
         height: 40%;
+        overflow: auto;
         border-radius: 20px;
         position: relative;
         top: 25%;
         &.joinModal{
             height: 48%;
+            overflow: auto;
             .inputArea{
                 margin-top: 35px;
             }
@@ -62,6 +64,9 @@
                 padding: 3px 55px 5px 25px;
                 color: white;
                 font-size: 16px;
+                @media (max-width:360px) {
+                    width: 80%;
+                }
             }
 
             button{
@@ -88,6 +93,9 @@
                 color: $mainColor;
                 cursor: pointer;
                 font-weight: bold;
+            }
+            @media (max-width:360px) {
+                font-size: 16px;
             }
         }
     }
