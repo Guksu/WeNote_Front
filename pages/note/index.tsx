@@ -13,7 +13,7 @@ import { NoteList } from "@/interface/interface";
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = context.req.headers.cookie?.split("; ") || "";
 
-  const res = await axios.get(`/note/all_list`, {
+  const res = await axios.get(`/note/all_list?memId=${context.query.memId}`, {
     headers: { Cookie: cookies },
   });
 
@@ -51,7 +51,7 @@ export default function Note({ noteDataSRR }: { noteDataSRR: NoteList[] }) {
 
   const dataRefresh = async () => {
     try {
-      const res = await axios.get("/note/all_list");
+      const res = await axios.get(`/note/all_list?memId=${sessionStorage.getItem("memId")}`);
       if (res.status === 200) {
         setNoteData(res.data.data);
         setShowDate(res.data.data.filter((item: NoteList) => item.NOTE_STATE === categoryValue));
@@ -60,7 +60,7 @@ export default function Note({ noteDataSRR }: { noteDataSRR: NoteList[] }) {
   };
 
   const stateChangeRefresh = (id: number, state: string) => {
-    axios.patch(`/note/state_change/${id}`, { NOTE_STATE: state }).then((res1) => {
+    axios.patch(`/note/state_change/${id}?memId=${sessionStorage.getItem("memId")}`, { NOTE_STATE: state }).then((res1) => {
       dataRefresh();
     });
   };

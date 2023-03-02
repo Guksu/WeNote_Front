@@ -37,7 +37,7 @@ export default function NoteCreateModal({ setNewBtnOpen, dataRefresh }: Props) {
         form.append("NOTE_TITLE", `${title}`);
         form.append("NOTE_CONTENT", `${content}`);
 
-        const res = await axios.post("/note/create", form);
+        const res = await axios.post(`/note/create?memId=${sessionStorage.getItem("memId")}`, form);
         if (res.status === 200) {
           alertMsgChange("등록되었습니다.");
           alertTypeChange("Success");

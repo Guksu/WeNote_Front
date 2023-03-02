@@ -16,7 +16,7 @@ import ProjectMemberModal from "@/components/modal/projectMemberModal";
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = context.req.headers.cookie?.split("; ") || "";
 
-  const res = await axios.get(`/project_note/all_list/${context.query.id}`, {
+  const res = await axios.get(`/project_note/all_list/${context.query.id}?memId=${context.query.memId})`, {
     headers: { Cookie: cookies },
   });
 
@@ -56,7 +56,7 @@ export default function ProjectDetail({ noteDataSRR }: { noteDataSRR: ProjectNot
 
   const dataRefresh = async () => {
     try {
-      const res = await axios.get(`/project_note/all_list/${router.query.id}`);
+      const res = await axios.get(`/project_note/all_list/${router.query.id}?memId=${sessionStorage.getItem("memId")}`);
       if (res.status === 200) {
         setNoteData(res.data.data);
         setShowDate(res.data.data.filter((item: ProjectNoteList) => item.PRO_NOTE_STATE === categoryValue));
@@ -65,7 +65,7 @@ export default function ProjectDetail({ noteDataSRR }: { noteDataSRR: ProjectNot
   };
 
   const stateChangeRefresh = (id: number, state: string) => {
-    axios.patch(`/project_note/state_change/${id}`, { PRO_NOTE_STATE: state }).then((res1) => {
+    axios.patch(`/project_note/state_change/${id}?memId=${sessionStorage.getItem("memId")}`, { PRO_NOTE_STATE: state }).then((res1) => {
       dataRefresh();
     });
   };

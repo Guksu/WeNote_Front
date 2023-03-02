@@ -12,7 +12,7 @@ import styles from "../../styles/profile.module.scss";
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = context.req.headers.cookie?.split("; ") || "";
 
-  const res = await axios.get(`/profile/info`, {
+  const res = await axios.get(`/profile/info?memId=${context.query.memId}`, {
     headers: { Cookie: cookies },
   });
 
@@ -52,9 +52,7 @@ export default function Profile({ profileDataSSR }: { profileDataSSR: ProfileInf
       }
       form.append("MEM_NICK", `${nick}`);
       try {
-        const res = await axios.patch("/profile/update", form, {
-          headers: { Cookie: [`accessToken=${sessionStorage.getItem("accessToken")}`, `refreshToken=${sessionStorage.getItem("refreshToken")}`] },
-        });
+        const res = await axios.patch(`/profile/update?memId=${sessionStorage.getItem("memId")}`, form);
         if (res.status === 200) {
           const profileImg = res.data.data.MEM_IMG !== "" ? `${process.env.NEXT_PUBLIC_SERVER_URL}/${res.data.data.MEM_IMG}` : "";
           alertMsgChange("수정되었습니다.");
@@ -72,7 +70,7 @@ export default function Profile({ profileDataSSR }: { profileDataSSR: ProfileInf
 
   const onLogoutClick = async () => {
     try {
-      const res = await axios.patch("/account/logout");
+      const res = await axios.patch(`/account/logout?memId=${sessionStorage.getItem("memId")}`);
       if (res.status === 200) {
         window.sessionStorage.clear();
         isLoginChange(false);
@@ -92,7 +90,7 @@ export default function Profile({ profileDataSSR }: { profileDataSSR: ProfileInf
       cancelButtonText: "취소",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.patch("/profile/withdrawl_membership").then((res) => {
+        axios.patch(`/profile/withdrawl_membership?memId=${sessionStorage.getItem("memId")}`).then((res) => {
           if (res.status === 200) {
             window.sessionStorage.clear();
             isLoginChange(false);

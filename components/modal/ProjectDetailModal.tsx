@@ -18,7 +18,7 @@ export default function ProjectDetailModal({ setDetailOpen, detailId }: Props) {
   //----------------------function-----------------
   const getDetailData = async () => {
     try {
-      const res = await axios.get(`/project/detail/${detailId}`);
+      const res = await axios.get(`/project/detail/${detailId}?memId=${sessionStorage.getItem("memId")}`);
       setDetailDate(res.data.data);
     } catch (error) {
       console.log(error);
@@ -27,7 +27,7 @@ export default function ProjectDetailModal({ setDetailOpen, detailId }: Props) {
 
   const onJoinClick = async () => {
     try {
-      const res = await axios.post("/project/participation", { PRO_ID: detailId });
+      const res = await axios.post(`/project/participation?memId=${sessionStorage.getItem("memId")}`, { PRO_ID: detailId });
       if (res.status === 200) {
         alertMsgChange("참여신청 되었습니다.");
         alertTypeChange("Success");

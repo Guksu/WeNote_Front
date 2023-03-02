@@ -14,8 +14,8 @@ import { useRouter } from "next/router";
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = context.req.headers.cookie?.split("; ") || "";
 
-  const allProjectRes = await axios.get(`/project/all_project_list`, { headers: { Cookie: cookies } });
-  const myProjectRes = await axios.get(`/project/my_project_list`, { headers: { Cookie: cookies } });
+  const allProjectRes = await axios.get(`/project/all_project_list?memId=${context.query.memId}`, { headers: { Cookie: cookies } });
+  const myProjectRes = await axios.get(`/project/my_project_list?memId=${context.query.memId}`, { headers: { Cookie: cookies } });
 
   return {
     props: {
@@ -48,7 +48,7 @@ export default function Project({ allProjectListSSR, myProjectListSSR }: { allPr
 
   const dataRefresh = async () => {
     try {
-      const res = await axios.get(`/project/my_project_list`);
+      const res = await axios.get(`/project/my_project_list?memId=${sessionStorage.getItem("memId")}`);
       setMyProjectList(res.data.data);
       setShowProjectList(res.data.data);
     } catch (error) {}
@@ -75,7 +75,7 @@ export default function Project({ allProjectListSSR, myProjectListSSR }: { allPr
                   key={item.PRO_ID}
                   className={styles.projectBox}
                   style={{ cursor: "pointer" }}
-                  onClick={() => router.push(`/project/${item.PRO_ID}?title=${item.PRO_TITLE}`)}
+                  onClick={() => router.push(`/project/${item.PRO_ID}?title=${item.PRO_TITLE}&memId=${sessionStorage.getItem("memId")}`)}
                 >
                   <div>
                     <h4>{item.PRO_TITLE}</h4>

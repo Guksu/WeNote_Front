@@ -38,9 +38,8 @@ export default function LoginModal({ setLoginOpen, setJoinOpen }: Props) {
           onCloseClick();
           const profileImg = res.data.data.MEM_IMG !== "" ? `${process.env.NEXT_PUBLIC_SERVER_URL}/${res.data.data.MEM_IMG}` : "";
           window.sessionStorage.setItem("token", res.data.data.accessToken);
-          window.sessionStorage.setItem("accessToken", res.data.data.accessToken);
-          window.sessionStorage.setItem("refreshToken", res.data.data.refreshToken);
           window.sessionStorage.setItem("profileImg", profileImg);
+          window.sessionStorage.setItem("memId", res.data.data.MEM_ID);
           document.cookie = `accessToken=${res.data.data.accessToken}`;
           document.cookie = `refreshToken=${res.data.data.refreshToken}`;
           router.reload();

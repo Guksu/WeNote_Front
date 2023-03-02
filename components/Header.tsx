@@ -69,7 +69,12 @@ export default function Header() {
           <div>
             {isLogin ? (
               <div className={styles.prfileImg}>
-                <Image src={profileImg || "/images/default_user.png"} alt="프로필 이미지" onClick={() => router.push("/profile")} fill />
+                <Image
+                  src={profileImg || "/images/default_user.png"}
+                  alt="프로필 이미지"
+                  onClick={() => router.push(`/profile?memId=${sessionStorage.getItem("memId")}`)}
+                  fill
+                />
               </div>
             ) : (
               <button className={styles.loginBtn} onClick={() => setLoginOpen(true)}>
@@ -85,10 +90,18 @@ export default function Header() {
           {/* <Link href={"/participation"} className={router.asPath.includes("/participation") ? styles.on : ""} onClick={(e) => onLoginCheck(e)}>
             참여현황
           </Link> */}
-          <Link href={"/project"} className={router.asPath.includes("/project") ? styles.on : ""} onClick={(e) => onLoginCheck(e)}>
+          <Link
+            href={`/project?memId=${sessionStorage.getItem("memId")}`}
+            className={router.asPath.includes("/project") ? styles.on : ""}
+            onClick={(e) => onLoginCheck(e)}
+          >
             프로젝트
           </Link>
-          <Link href={"/note"} className={router.asPath.includes("/note") ? styles.on : ""} onClick={(e) => onLoginCheck(e)}>
+          <Link
+            href={`/note?memId=${sessionStorage.getItem("memId")}`}
+            className={router.asPath.includes("/note") ? styles.on : ""}
+            onClick={(e) => onLoginCheck(e)}
+          >
             개인 노트
           </Link>
         </nav>
@@ -106,13 +119,21 @@ export default function Header() {
           </span>
           <p>참여현황</p>
         </Link> */}
-        <Link href={"/project"} className={router.asPath.includes("/project") ? styles.on : ""} onClick={(e) => onLoginCheck(e)}>
+        <Link
+          href={`/project?memId=${sessionStorage.getItem("memId")}`}
+          className={router.asPath.includes("/project") ? styles.on : ""}
+          onClick={(e) => onLoginCheck(e)}
+        >
           <span>
             <WorkIcon />
           </span>
           <p>프로젝트</p>
         </Link>
-        <Link href={"/note"} className={router.asPath.includes("/note") ? styles.on : ""} onClick={(e) => onLoginCheck(e)}>
+        <Link
+          href={`/note?memId=${sessionStorage.getItem("memId")}`}
+          className={router.asPath.includes("/note") ? styles.on : ""}
+          onClick={(e) => onLoginCheck(e)}
+        >
           <span>
             <EventNoteIcon />
           </span>

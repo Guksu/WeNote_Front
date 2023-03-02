@@ -53,7 +53,7 @@ export default function ProjectCreateModal({ setNewBtnOpen, dataRefresh }: Props
         form.append("PRO_TITLE", title);
         form.append("PRO_CONTENT", content);
 
-        const res = await axios.post("/project/create", form);
+        const res = await axios.post(`/project/create?memId=${sessionStorage.getItem("memId")}`, form);
         if (res.status === 200) {
           alertMsgChange("등록되었습니다.");
           alertTypeChange("Success");
