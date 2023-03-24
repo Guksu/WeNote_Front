@@ -1,27 +1,23 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  async redirects() {
+  async rewrites() {
     return [
       {
         source: "/profile",
         destination: "/",
-        permanent: true,
       },
       {
         source: "/project",
         destination: "/",
-        permanent: true,
       },
       {
         source: "/note",
         destination: "/",
-        permanent: true,
       },
       {
         source: "/participation",
         destination: "/",
-        permanent: true,
       },
     ];
   },
