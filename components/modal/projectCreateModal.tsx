@@ -3,7 +3,7 @@ import styles from "../../styles/projectCreateModal.module.scss";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { useAppStore } from "@/store/store";
 import axios from "axios";
-import { getPrevImg } from "@/utils/getPrevIng";
+import { getPrevImg } from "@/utils/getPrevImg";
 import Image from "next/image";
 
 type Props = {

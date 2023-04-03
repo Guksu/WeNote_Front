@@ -2,7 +2,7 @@ import styles from "../../styles/login.module.scss";
 import { Dispatch, SetStateAction, useState } from "react";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import axios from "axios";
-import { getPrevImg } from "@/utils/getPrevIng";
+import { getPrevImg } from "@/utils/getPrevImg";
 import { useAppStore } from "@/store/store";
 
 type Props = {

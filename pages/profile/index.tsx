@@ -1,6 +1,6 @@
 import { ProfileInfo } from "@/interface/interface";
 import { useAppStore } from "@/store/store";
-import { getPrevImg } from "@/utils/getPrevIng";
+import { getPrevImg } from "@/utils/getPrevImg";
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
