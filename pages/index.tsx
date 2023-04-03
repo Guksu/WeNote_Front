@@ -105,7 +105,7 @@ export default function Home({ projectListSSR }: { projectListSSR: ProjectList[]
     <>
       <div>
         <CommonTopFiler category={category} categoryChange={categoryChange} valueCheck={homeQuery.category} newBtn={false} />
-        <div>
+        <article>
           {projectList.length > 0 ? (
             <div className={styles.projectListWrapper}>
               {projectList.map((item: ProjectList, index: number) => {
@@ -135,7 +135,7 @@ export default function Home({ projectListSSR }: { projectListSSR: ProjectList[]
           ) : (
             <NoneData text="등록된 프로젝트가 없습니다." />
           )}
-        </div>
+        </article>
       </div>
       {detailOpen && <ProjectDetailModal detailId={detailId} setDetailOpen={setDetailOpen} />}
     </>

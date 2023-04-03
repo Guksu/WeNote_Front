@@ -46,7 +46,7 @@ export default function Header() {
 
   return (
     <>
-      <div className={styles.allWrapper}>
+      <header className={styles.allWrapper}>
         <div className={styles.topSection}>
           <div className={styles.mainLogo}>WeNote</div>
           <div className={styles.searchBox}>
@@ -105,7 +105,7 @@ export default function Header() {
             개인 노트
           </Link>
         </nav>
-      </div>
+      </header>
       <nav className={styles.mobileBottomSection}>
         <Link href={"/"} className={router.asPath === "/" ? styles.on : ""}>
           <span>

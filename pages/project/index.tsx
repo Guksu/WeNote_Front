@@ -66,7 +66,7 @@ export default function Project({ allProjectListSSR, myProjectListSSR }: { allPr
       <CommonTopFiler category={category} categoryChange={categoryChange} valueCheck={categoryValue} newBtn={true} setNewBtnOpen={setNewBtnOpen} />
       <div>
         {showProjectList.length > 0 ? (
-          <div className={styles.projectListWrapper}>
+          <article className={styles.projectListWrapper}>
             {showProjectList.map((item: ProjectList) => {
               const date = new Date(item.PRO_REG_DT).toLocaleDateString();
 
@@ -114,7 +114,7 @@ export default function Project({ allProjectListSSR, myProjectListSSR }: { allPr
                 </div>
               );
             })}
-          </div>
+          </article>
         ) : (
           <NoneData text="등록된 프로젝트가 없습니다." />
         )}
